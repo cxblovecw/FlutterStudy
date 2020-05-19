@@ -1,7 +1,8 @@
+import 'package:FlutterStudy/pages/drawer/drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:FlutterStudy/pages/message.dart';
-import 'package:FlutterStudy/pages/contact.dart';
-import 'package:FlutterStudy/pages/moments.dart';
+import 'package:FlutterStudy/pages/message/message.dart';
+import 'package:FlutterStudy/pages/contact/contact.dart';
+import 'package:FlutterStudy/pages/moments/moments.dart';
 
 class Tabs extends StatefulWidget {
   @override
@@ -11,11 +12,11 @@ class Tabs extends StatefulWidget {
 class _TabsState extends State<Tabs> {
   String title="消息";
   int index=0;
-  List<Widget> tabsList=[
-    MessagePage(),
-    ContactPage(),
-    MomontsPage(),
-  ];
+  // List<Widget> tabsList=[
+  //   MessagePage(),
+  //   ContactPage(),
+  //   MomontsPage(),
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,22 +29,15 @@ class _TabsState extends State<Tabs> {
         })
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          children:[
-            DrawerHeader(child: Text("抽屉头"),padding: EdgeInsets.all(20),),
-            ListTile(
-              leading:Icon(Icons.satellite),
-              title:Text("我不配"),
-            ),
-            ListTile(
-              leading:Icon(Icons.schedule),
-              title:Text("配几把")
-            )
-          ]
-        ),
+      drawer: MyDrawer(),
+      // body:tabsList[index],
+      body: IndexedStack(
+        index: index,
+        children:[
+          MessagePage(),
+          ContactPage(),
+          MomontsPage(),]
       ),
-      body:tabsList[index],
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.message),title:Text("消息")),
@@ -58,7 +52,8 @@ class _TabsState extends State<Tabs> {
             index=value;
           });
         },
-        currentIndex: index),
+        currentIndex: index
+        ),
     );
   }
 }
