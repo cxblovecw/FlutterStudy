@@ -25,8 +25,18 @@ class _TabsState extends State<Tabs> {
         centerTitle: true,
         leading: Leading(),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.add), onPressed: (){
-        })
+          PopupMenuButton(
+            offset: Offset(180,120),
+            icon: Icon(Icons.add),
+            shape: RoundedRectangleBorder(),
+            itemBuilder: (BuildContext context){
+              return <PopupMenuItem>[
+                PopupMenuItem(child: Text("加好友/群")),  
+                PopupMenuItem(child: Text("加好友/群")),
+                PopupMenuItem(child: Text("加好友/群")),
+                PopupMenuItem(child: Text("加好友/群")),
+            ];
+          })
         ],
       ),
       drawer: MyDrawer(),
