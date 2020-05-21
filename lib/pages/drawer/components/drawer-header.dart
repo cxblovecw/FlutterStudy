@@ -8,7 +8,7 @@ class MyDrawerHeader extends StatelessWidget {
               width: double.infinity,
               height: 140,
               decoration: BoxDecoration(
-                image: DecorationImage(image: NetworkImage("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589909832853&di=7402afd6ba479851adb885ded95929cf&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Fe%2F512353ca9630c.jpg"),fit: BoxFit.fitWidth)
+                image: DecorationImage(image: AssetImage("assets/images/drawer-header.jpg"),fit: BoxFit.fitWidth)
               ),
               child:Row(
                 mainAxisSize:MainAxisSize.max,

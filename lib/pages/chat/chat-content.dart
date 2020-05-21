@@ -1,5 +1,5 @@
-import 'package:FlutterStudy/pages/chat/components/chat-bar.dart';
-import 'package:FlutterStudy/pages/chat/components/chat-record.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-bar/chat-bar.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-record/chat-record.dart';
 import 'package:flutter/material.dart';
 
 class ChatContent extends StatefulWidget {
