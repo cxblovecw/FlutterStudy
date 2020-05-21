@@ -1,4 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter_sound/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ChatVoice extends StatefulWidget {
   @override
@@ -17,12 +21,16 @@ class _ChatVoiceState extends State<ChatVoice> {
     "松手转文字",
     "松手取消发送",
   ];
+  // 执行什么操作
+  String operation='';
   // 语音转文字的按钮颜色
   Color voiceToTxt=Colors.black12;
   // 取消发送的按钮颜色
   Color cancel=Colors.black12;
+  // 
+  FlutterSoundRecorder rs;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     // 获取屏幕宽高
      double width=MediaQuery.of(context).size.width;
      double height=MediaQuery.of(context).size.height;
@@ -57,7 +65,15 @@ class _ChatVoiceState extends State<ChatVoice> {
                   Container(height:height*0.18-60),
                   GestureDetector(
                     // 录音按钮长按事件
-                    onLongPress: (){
+                    onLongPress: () async {
+                      print("开始录音");
+                      // 实例化 
+                      rs=FlutterSoundRecorder();
+                      // 使用path_provider插件获取路径
+                      getExternalStorageDirectory().then((value) => {
+                        // 开始录音 
+                        rs.startRecorder(uri: value.path+"/ttt.mp3")
+                      });
                       setState(() {
                         opacity=1;
                         currentIndex=1;
@@ -66,6 +82,7 @@ class _ChatVoiceState extends State<ChatVoice> {
                     // 录音按钮移动事件
                     // 注意：移动时候左边位置 是从按钮的左边开始的
                     onLongPressMoveUpdate: (value){
+                      // print(operation);
                       var offset=value.localPosition;
                       // 移动到左边的 语音转文字按钮
                       if((offset.dx>((-width/2)+70))&&(offset.dx<(-width/6+30))&&(offset.dy>15)&&(offset.dy<70)){
@@ -73,6 +90,7 @@ class _ChatVoiceState extends State<ChatVoice> {
                           // print("语音转文字");
                           currentIndex=2;
                           voiceToTxt=Colors.green;
+                          operation="voiceToTxt";
                         });
                       }
                       // 移动到右边的取消按钮
@@ -81,19 +99,34 @@ class _ChatVoiceState extends State<ChatVoice> {
                         setState(() {
                           currentIndex=3;
                           cancel=Colors.red;
+                          operation="cancel";
                         });
                         // 长按状态 但不在两侧任意一个按钮范围内
                       }else{
+                        operation="";
                         setState(() {
                           currentIndex=1;
                           voiceToTxt=Colors.black12;
                           cancel=Colors.black12;
                         });
                       }
-                     
                     },
                     // 录音按钮结束事件
                     onLongPressEnd: (value){
+                      if(operation=="cancel"){
+                        // 取消录音
+                        rs.release();
+                        print("取消");
+                      }else if(operation=='voiceToTxt'){
+                        print("语音转文字");
+                      }else{
+                        print("发送语音");
+                        // 结束录音
+                        rs.stopRecorder();
+                        // print(rs.tmpUri);
+                        // print(rs.tmpUri);
+                        // print(rs.savedUri);
+                      }
                       setState(() {
                         opacity=0;
                         currentIndex=0;
@@ -133,5 +166,11 @@ class _ChatVoiceState extends State<ChatVoice> {
         ],
       ),
     );
+  }
+  inVoiceToTxt(){
+
+  }
+  inCancel(){
+
   }
 }

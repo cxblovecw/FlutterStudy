@@ -1,17 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
+import 'dart:async';
 
-class ChatImage extends StatefulWidget {
-  @override
-  _ChatImageState createState() => _ChatImageState();
-}
+Future getImages() async{
+  print("图片");
+  // List<Asset> images = List<Asset>();
+  // List<Asset> resultList;
+  String error;
+  try {
+      MultiImagePicker.pickImages(
+        maxImages: 10,
+      ).then((value) =>{
+        print(value)
 
-class _ChatImageState extends State<ChatImage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height*0.36,
-      width: double.infinity,
-      child:Text("我是发送图片功能")
-    );
-  }
+      });
+    } on Exception catch (e) {
+      error = e.toString();
+      print(error);
+    }
 }
