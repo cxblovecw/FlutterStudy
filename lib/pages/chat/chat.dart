@@ -1,5 +1,8 @@
-import 'package:FlutterStudy/pages/chat/parts/chat-bar/chat-bar.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-video/chat-video.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-vioce/chat-voice.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-bar/chat-bar.dart';
 part 'package:FlutterStudy/pages/chat/chat-content.dart';
 
 class ChatPage extends StatefulWidget {
@@ -30,17 +33,21 @@ class _ChatPageState extends State<ChatPage> {
                     ListTile(
                       title: Text("语音通话",textAlign: TextAlign.center,),
                       onTap: (){
-                        print("语音");
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (BuildContext context){
+                          return VoiceCall();
+                        }));
                       },
                     ),
                     ListTile(
                       title: Text("视频通话",textAlign: TextAlign.center,),
                       onTap: (){
-                        print("视频");
+                        Navigator.pushReplacement(context,MaterialPageRoute(builder: (BuildContext context){
+                          return VideoCall();
+                        }));
                       },
                     )
                   ],
-    ),
+               ),
               );
             });
           }),

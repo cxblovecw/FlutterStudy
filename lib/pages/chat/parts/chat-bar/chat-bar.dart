@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
@@ -12,105 +13,87 @@ part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-image.dart";
 part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-voice.dart";
 
 
-
-class XXX extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          
-        ],
-      ),
-    );
-  }
-}
-
 class ChatBar extends StatefulWidget {
   @override
   _ChatBarState createState() => _ChatBarState();
 }
+// 存储聊天框的输入内容 放在外面是为了给其他文件访问
 String inputText="";
+// 输入框的控制器 
+TextEditingController controller=new TextEditingController.fromValue(
+  TextEditingValue(
+    text:inputText,
+    selection: new TextSelection.fromPosition(TextPosition(
+      affinity: TextAffinity.downstream,offset: inputText.length)))
+);
 
 class _ChatBarState extends State<ChatBar> {
   // 控制聊天功能导航条的显示和隐藏
   bool offstage=true;
   // 输入框的行数
   int maxline=1;
-  // 聊天导航条当前位置 0为置空，即都不显示，图标也不高亮
+  // 聊天功能栏 当前位置 0为置空，即都不显示，图标也不高亮
   int currentIndex=0;
+  // 聊天功能栏对应的内容列表
   List<Widget> chatBarContent;
-  static final TextEditingController controller=new TextEditingController.fromValue(
-      TextEditingValue(
-        text:inputText,
-        selection: new TextSelection.fromPosition(TextPosition(
-                affinity: TextAffinity.downstream,
-                offset: inputText.length)))
-    );
+
   @override
   void initState() {
     super.initState();
-    print("初始化");
-    
   }
   @override
   Widget build(BuildContext context) {
+    // 初始化底部功能栏
     chatBarContent=[
       Container(),
       ChatVoice(),
       Container(),
       Container(),
-      ChatEmoji(controller),
+      ChatEmoji(),
       Container(),
     ];
+    // 使用Warp做容器 因为其中的内容是动态的
     return Wrap(children: <Widget>[
         Row(
           children: <Widget>[
+            // 输入框的外部包装
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(left: 20,right: 20.0,top: 10,bottom: 0),
+                margin: EdgeInsets.only(left: 20,right: 10.0,top: 10,bottom: 0),
                 padding: EdgeInsets.only(left: 25,right: 20.0,top: 0,bottom: 0),
                 decoration: BoxDecoration(
                   color:Colors.white,
                   borderRadius: BorderRadius.all(Radius.circular(20))
                 ),
+                // 输入框
                 child:TextField(
+                  autofocus: true,
                   controller: controller,
                   minLines: 1,
                   maxLines: 3,
                   decoration: InputDecoration(
-                    border:InputBorder.none,
-                    contentPadding:const EdgeInsets.symmetric(vertical: 0)),
-                    scrollPadding:const EdgeInsets.symmetric(vertical: 0),
-                  // 输入框发生改变时 监听长度 控制行数
-                  onChanged:(value){
-                    setState(() {
-                      inputText=value;
-                    });
-                  },
-                  onSubmitted: (value){
-                    print("发送信息");
-                    inputText="";
-                    controller.clear();
-                  },
-                  onTap: (){
-                    setState(() {
-                      offstage=true;
-                      currentIndex=0;
-                    });
-                    print("????");
-                  },
+                    border:InputBorder.none,),
+                    // 点击输入框时 底部的功能内容隐藏
+                    onTap: (){
+                      setState(() {
+                        offstage=true;
+                        currentIndex=0;
+                      });
+                    },
                 ),
             ),
             ),
+            // 发送按钮
             GestureDetector(
               onTap: (){
-                print(inputText);
+                print(controller.text);
+                // 清空输入框
+                controller.clear();
               },
               child: Container(
                 height: 30,
-                width: 75,
-                margin: EdgeInsets.only(top: 12),
+                width: 50,
+                margin: EdgeInsets.only(top: 12,right: 15),
                 alignment: Alignment.center,
                 child: Text("发送",style: TextStyle(color: Colors.white),),
                 decoration: BoxDecoration(
@@ -124,6 +107,7 @@ class _ChatBarState extends State<ChatBar> {
         // 聊天功能导航条
         Row(
           children: <Widget>[
+            // 语音按钮
             Expanded(child: IconButton(icon: Icon(Icons.mic,color:currentIndex==1?Colors.blue:Colors.black54,), onPressed: (){
               showOrHide(1,context);
               print(Permission.microphone.status);
@@ -133,7 +117,7 @@ class _ChatBarState extends State<ChatBar> {
                     print("请求权限")
                   })
                 }else{
-                  print("有权限")
+                    print("有权限")
                 }
               });
               // if(){
@@ -142,19 +126,23 @@ class _ChatBarState extends State<ChatBar> {
               //   print("有权限");
               // }
             }),flex: 1,),
+            // 照片按钮
             Expanded(child: IconButton(icon: Icon(Icons.photo_size_select_actual,color:currentIndex==2?Colors.blue:Colors.black54,), onPressed: (){
               getImages().then((value) =>{
              
               });
               // showOrHide(2,context);
             }),flex: 1,),
+            // 拍照按钮
             Expanded(child: IconButton(icon: Icon(Icons.camera_alt,color:currentIndex==3?Colors.blue:Colors.black54,), onPressed: (){
               openCamera();
               showOrHide(3,context);
             }),flex: 1,),
+            // 表情按钮
             Expanded(child: IconButton(icon: Icon(Icons.tag_faces,color:currentIndex==4?Colors.blue:Colors.black54), onPressed: (){
               showOrHide(4,context);
             }),flex: 1,),
+            // 文件按钮
             Expanded(child: IconButton(icon: Icon(Icons.folder_open,color:currentIndex==5?Colors.blue:Colors.black54), onPressed: (){
               showOrHide(5,context);
             }),flex: 1,),
@@ -168,6 +156,7 @@ class _ChatBarState extends State<ChatBar> {
     ],
     );
   }
+  // 控制功能内容部分隐藏和显示
   showOrHide(index,context){
     FocusScope.of(context).requestFocus(FocusNode());
     new Timer(new Duration(milliseconds: 200),(){

@@ -1,5 +1,5 @@
-import 'package:FlutterStudy/pages/drawer/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:FlutterStudy/pages/drawer/drawer.dart';
 import 'package:FlutterStudy/pages/message/message.dart';
 import 'package:FlutterStudy/pages/contact/contact.dart';
 import 'package:FlutterStudy/pages/moments/moments.dart';
