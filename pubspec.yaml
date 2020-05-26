@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  agora_rtc_engine: 1.0.5
   flutter_slidable: ^0.5.4
   path_provider: ^1.6.8
   multi_image_picker: ^4.6.5

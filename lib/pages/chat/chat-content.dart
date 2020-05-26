@@ -1,6 +1,4 @@
-import 'package:FlutterStudy/pages/chat/parts/chat-bar/chat-bar.dart';
-import 'package:FlutterStudy/pages/chat/parts/chat-record/chat-record.dart';
-import 'package:flutter/material.dart';
+part of 'package:FlutterStudy/pages/chat/chat.dart';
 
 class ChatContent extends StatefulWidget {
   @override
@@ -14,7 +12,7 @@ class _ChatContentState extends State<ChatContent> {
       children: <Widget>[
         Expanded(child: ListView(
           children: <Widget>[
-            
+
           ],
         )),
         Container(

@@ -1,18 +1,36 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-camera.dart';
-import 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-emoji.dart';
-import 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-image.dart';
-import 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-voice.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_sound/flutter_sound_recorder.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:async';
+
+part 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-camera.dart';
+part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-emoji.dart";
+part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-image.dart";
+part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-voice.dart";
+
+
+
+class XXX extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          
+        ],
+      ),
+    );
+  }
+}
 
 class ChatBar extends StatefulWidget {
   @override
   _ChatBarState createState() => _ChatBarState();
 }
+String inputText="";
 
 class _ChatBarState extends State<ChatBar> {
   // 控制聊天功能导航条的显示和隐藏
@@ -21,70 +39,87 @@ class _ChatBarState extends State<ChatBar> {
   int maxline=1;
   // 聊天导航条当前位置 0为置空，即都不显示，图标也不高亮
   int currentIndex=0;
-  List<Widget> chatBarContent=[
-    Container(),
-    ChatVoice(),
-    Container(),
-    Container(),
-    ChatEmoji(),
-    Container(),
-  ];
-  String text="";
+  List<Widget> chatBarContent;
+  static final TextEditingController controller=new TextEditingController.fromValue(
+      TextEditingValue(
+        text:inputText,
+        selection: new TextSelection.fromPosition(TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: inputText.length)))
+    );
   @override
   void initState() {
     super.initState();
+    print("初始化");
+    
   }
   @override
   Widget build(BuildContext context) {
-    var controller=new TextEditingController.fromValue(
-      TextEditingValue(
-        text: text,
-        selection: new TextSelection.fromPosition(TextPosition(
-                affinity: TextAffinity.downstream,
-                offset: text.length)))
-    );
-    return Column(children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(left: 20,right: 20.0,top: 10,bottom: 10),
-          padding: EdgeInsets.only(left: 25,right: 20.0),
-          decoration: BoxDecoration(
-            color:Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(20))
-          ),
-          constraints: BoxConstraints(
-            minHeight: 30.0,
-            maxHeight: 120.0
-          ),
-          child:TextField(
-            controller: controller,
-            maxLines: maxline,
-            decoration: InputDecoration(border:InputBorder.none),
-            // 输入框发生改变时 监听长度 控制行数
-            onChanged:(value){
-              
-              var data=Utf8Encoder().convert(value);
-              print(data.length);
-              setState(() {
-                // 这个是必须的 有了控制器之后 输入框中的内容由其中的text属性决定
-                text=value;
-                if(data.length>48){
-                  maxline=3;
-                }else{
-                  maxline=1;
-                }
-              });
-            },
-            onSubmitted: (value){
-              print("发送信息");
-              controller.clear();
-            },
-            onTap: (){
-              setState(() {
-                offstage=true;
-                currentIndex=0;
-              });
-            },
-          ),
+    chatBarContent=[
+      Container(),
+      ChatVoice(),
+      Container(),
+      Container(),
+      ChatEmoji(controller),
+      Container(),
+    ];
+    return Wrap(children: <Widget>[
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(left: 20,right: 20.0,top: 10,bottom: 0),
+                padding: EdgeInsets.only(left: 25,right: 20.0,top: 0,bottom: 0),
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20))
+                ),
+                child:TextField(
+                  controller: controller,
+                  minLines: 1,
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    border:InputBorder.none,
+                    contentPadding:const EdgeInsets.symmetric(vertical: 0)),
+                    scrollPadding:const EdgeInsets.symmetric(vertical: 0),
+                  // 输入框发生改变时 监听长度 控制行数
+                  onChanged:(value){
+                    setState(() {
+                      inputText=value;
+                    });
+                  },
+                  onSubmitted: (value){
+                    print("发送信息");
+                    inputText="";
+                    controller.clear();
+                  },
+                  onTap: (){
+                    setState(() {
+                      offstage=true;
+                      currentIndex=0;
+                    });
+                    print("????");
+                  },
+                ),
+            ),
+            ),
+            GestureDetector(
+              onTap: (){
+                print(inputText);
+              },
+              child: Container(
+                height: 30,
+                width: 75,
+                margin: EdgeInsets.only(top: 12),
+                alignment: Alignment.center,
+                child: Text("发送",style: TextStyle(color: Colors.white),),
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(15)
+                ),
+              ),
+            ),
+          ],
         ),
         // 聊天功能导航条
         Row(

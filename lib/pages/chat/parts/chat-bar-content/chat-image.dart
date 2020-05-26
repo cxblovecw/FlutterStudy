@@ -1,5 +1,4 @@
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'dart:async';
+part of '../chat-bar/chat-bar.dart';
 
 Future getImages() async{
   print("图片");

@@ -1,8 +1,4 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_sound/flutter_sound.dart';
-import 'package:flutter_sound/flutter_sound_recorder.dart';
-import 'package:path_provider/path_provider.dart';
+part of '../chat-bar/chat-bar.dart';
 
 class ChatVoice extends StatefulWidget {
   @override
