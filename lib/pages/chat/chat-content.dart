@@ -16,7 +16,7 @@ class _ChatContentState extends State<ChatContent> {
           ],
         )),
         Container(
-          color:Color.fromRGBO(220, 220, 220,0.2),
+          color:Color.fromRGBO(200, 200, 200,0.3),
           child: ChatBar(),
         )
       ],

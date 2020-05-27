@@ -10,26 +10,26 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
+  // 控制顶AppBar的title
   String title="消息";
+  // 控制底部导航
   int index=0;
-  // List<Widget> tabsList=[
-  //   MessagePage(),
-  //   ContactPage(),
-  //   MomontsPage(),
-  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title:Text("$title"),
         centerTitle: true,
+        // AppBar中的头像
         leading: Leading(),
         actions: <Widget>[
+          // 弹出菜单按钮 Offset>100 会出现在AppBar下
           PopupMenuButton(
             offset: Offset(180,120),
             icon: Icon(Icons.add),
             shape: RoundedRectangleBorder(),
             itemBuilder: (BuildContext context){
+              // 弹出菜单
               return <PopupMenuItem>[
                 PopupMenuItem(child: Text("加好友/群")),  
                 PopupMenuItem(child: Text("加好友/群")),
@@ -39,8 +39,10 @@ class _TabsState extends State<Tabs> {
           })
         ],
       ),
+      // 抽屉菜单
       drawer: MyDrawer(),
       // body:tabsList[index],
+      // 底部导航对应的内容
       body: IndexedStack(
         index: index,
         children:[
@@ -48,12 +50,14 @@ class _TabsState extends State<Tabs> {
           ContactPage(),
           MomontsPage(),]
       ),
+      // 底部导航
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.message),title:Text("消息")),
           BottomNavigationBarItem(icon: Icon(Icons.people),title:Text("联系人")),
           BottomNavigationBarItem(icon: Icon(Icons.polymer),title:Text("动态")),
         ],
+        // 点击时切换标题和内容
         onTap: (value){
           setState(() {
             if(value==0){title="消息";}
@@ -69,6 +73,7 @@ class _TabsState extends State<Tabs> {
 }
 
 class Leading extends StatelessWidget {
+  // AppBar头像按钮 点击打开抽屉
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -76,7 +81,6 @@ class Leading extends StatelessWidget {
           backgroundImage: NetworkImage("https://c-ssl.duitang.com/uploads/item/201803/19/20180319132911_UxCLe.jpeg"),
         ), 
         onPressed:(){
-          print("点击");
           Scaffold.of(context).openDrawer();
         }
       );

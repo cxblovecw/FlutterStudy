@@ -1,5 +1,4 @@
-import 'package:FlutterStudy/pages/collection/collection.dart';
-import 'package:flutter/material.dart';
+part of 'package:FlutterStudy/pages/drawer/drawer.dart';
 
 class MyDrawerContent extends StatelessWidget {
   @override

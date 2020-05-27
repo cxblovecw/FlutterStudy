@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Collection extends StatelessWidget{
+  // 抽屉中 我的收藏功能
   @override
   Widget build(BuildContext context) {
     return Scaffold(

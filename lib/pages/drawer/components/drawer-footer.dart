@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'package:FlutterStudy/pages/drawer/drawer.dart';
 
 class MyDrawerFooter extends StatelessWidget {
   @override
@@ -9,9 +9,15 @@ class MyDrawerFooter extends StatelessWidget {
       child:Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children:[
-          IconButton(icon:Icon(Icons.settings),onPressed: (){}),
-          IconButton(icon:Icon(Icons.star),onPressed: (){}),
-          IconButton(icon:Icon(Icons.settings),onPressed: (){}),
+          IconButton(icon:Icon(Icons.settings),onPressed: (){
+
+          }),
+          IconButton(icon:Icon(Icons.star),onPressed: (){
+
+          }),
+          IconButton(icon:Icon(Icons.settings),onPressed: (){
+            
+          }),
         ]
       )
     );

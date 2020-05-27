@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../chat-bar/chat-bar.dart';
 class VideoCall extends StatefulWidget {
   @override
   _VideoCallState createState() => _VideoCallState();

@@ -17,6 +17,7 @@ class MessageItem extends StatefulWidget {
 class _MessageItemState extends State<MessageItem> {
   @override
   Widget build(BuildContext context) {
+    // Slidable为插件提供 实现左右滑动出现按钮
     return Slidable(
       child: GestureDetector(
         child: Container(
@@ -56,7 +57,9 @@ class _MessageItemState extends State<MessageItem> {
             }));
         },
       ), 
+      // 默认就这样写
       actionPane: SlidableDrawerActionPane(),
+      // 出现的按钮列表
       secondaryActions:<Widget>[
         IconSlideAction(
           caption: '删除',

@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+part of 'package:FlutterStudy/pages/drawer/drawer.dart';
 
 class MyDrawerHeader extends StatelessWidget {
+  //  抽屉头部
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +17,6 @@ class MyDrawerHeader extends StatelessWidget {
                   Expanded(
                     child:Container(
                       padding: EdgeInsets.only(top:15,right: 15),
-                      // color: Colors.red,
                       child: Container(
                         width: 60.0,
                         height:80.0,
@@ -28,7 +28,6 @@ class MyDrawerHeader extends StatelessWidget {
                     ),flex: 6,),
                   Expanded(child:Container(
                     height: 80.0,
-                    // color:Colors.yellow,
                     child: Container(
                       padding: EdgeInsets.only(top:20),
                       child: Column(
@@ -41,7 +40,6 @@ class MyDrawerHeader extends StatelessWidget {
                     ),
                   ),flex: 10,),
                   Expanded(child:Container(
-                    // color:Colors.green,
                     child: Container(
                       padding:EdgeInsets.only(top:20,right: 5),
                       child:IconButton(icon: Icon(Icons.wallpaper,color: Colors.white,), onPressed: (){
