@@ -8,18 +8,10 @@ class ChatContent extends StatefulWidget {
 class _ChatContentState extends State<ChatContent> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(child: ListView(
+    return Expanded(child: ListView(
           children: <Widget>[
 
           ],
-        )),
-        Container(
-          color:Color.fromRGBO(200, 200, 200,0.3),
-          child: ChatBar(),
-        )
-      ],
-    );
+        ));
   }
 }

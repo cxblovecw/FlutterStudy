@@ -1,4 +1,4 @@
-part of '../chat-bar/chat-bar.dart';
+part of '../../chat.dart';
 
 class ChatVoice extends StatefulWidget {
   @override

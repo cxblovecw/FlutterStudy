@@ -1,19 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_sound/flutter_sound_recorder.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:async';
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
-
-part 'package:FlutterStudy/pages/chat/parts/chat-video-call/chat-video.dart';
-part 'package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-camera.dart';
-part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-emoji.dart";
-part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-image.dart";
-part "package:FlutterStudy/pages/chat/parts/chat-bar-content/chat-voice.dart";
-
-
+part of '../../chat.dart';
 class ChatBar extends StatefulWidget {
   @override
   _ChatBarState createState() => _ChatBarState();
@@ -68,7 +53,6 @@ class _ChatBarState extends State<ChatBar> {
                 ),
                 // 输入框
                 child:TextField(
-                  autofocus: true,
                   controller: controller,
                   minLines: 1,
                   maxLines: 3,

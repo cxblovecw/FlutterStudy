@@ -1,4 +1,4 @@
-part of '../chat-bar/chat-bar.dart';
+part of '../../chat.dart';
 
 class ChatEmoji extends StatefulWidget {
   @override
