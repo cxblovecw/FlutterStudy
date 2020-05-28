@@ -73,7 +73,7 @@ class _ChatVoiceState extends State<ChatVoice> {
                       setState(() {
                         opacity=1;
                         currentIndex=1;
-                      });
+                      }); 
                     },
                     // 录音按钮移动事件
                     // 注意：移动时候左边位置 是从按钮的左边开始的

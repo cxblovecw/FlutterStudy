@@ -21,7 +21,6 @@ class _VideoCallState extends State<VideoCall> {
   @override
   void initState() { 
     super.initState();
-    requestPermision();
     // 获取我的屏幕
     me=AgoraRenderWidget(0, local: true, preview: true);
     // 好友连接时 获取好友的屏幕
@@ -30,18 +29,14 @@ class _VideoCallState extends State<VideoCall> {
         friend=AgoraRenderWidget(uid);
       });
     };
+    AgoraRtcEngine.muteLocalAudioStream(isMute);
+    AgoraRtcEngine.muteAllRemoteAudioStreams(noSpeaking);
     // 好友离开时 删除存放他屏幕的Widget
     AgoraRtcEngine.onUserOffline = (int uid, int reason){
       setState(() {
         friend=Container();
       });
     }; 
-  }
-  requestPermision()async{
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.microphone,
-      Permission.camera
-    ].request();
   }
   @override
   Widget build(BuildContext context) {
@@ -130,7 +125,7 @@ class _VideoCallState extends State<VideoCall> {
                       setState(() {
                         noSpeaking=!noSpeaking;  
                       });
-                      AgoraRtcEngine.enableLocalAudio(noSpeaking);
+                      AgoraRtcEngine.muteLocalAudioStream(noSpeaking);
                   }),),
                   // 关闭通话
                    Container(
@@ -162,7 +157,7 @@ class _VideoCallState extends State<VideoCall> {
                       setState(() {
                         isMute=!isMute;
                       });
-                      AgoraRtcEngine.muteLocalAudioStream(isMute);
+                      AgoraRtcEngine.muteAllRemoteAudioStreams(isMute);
                   })),
                 ],
               ),

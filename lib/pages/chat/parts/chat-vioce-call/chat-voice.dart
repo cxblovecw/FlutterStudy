@@ -61,7 +61,7 @@ class _VoiceCallState extends State<VoiceCall> {
                       setState(() {
                         noSpeaking=!noSpeaking;  
                       });
-                      AgoraRtcEngine.enableLocalAudio(noSpeaking);
+                      AgoraRtcEngine.muteLocalAudioStream(noSpeaking);
                   }),),
                    Container(
                     height: 70,
@@ -74,7 +74,8 @@ class _VoiceCallState extends State<VoiceCall> {
                     child:IconButton(icon: Icon(Icons.local_phone,color: Colors.white), onPressed: (){
                       AgoraRtcEngine.disableAudio();
                       AgoraRtcEngine.leaveChannel();
-                      print("接听挂断");
+                      widget.closeCall();
+                      Navigator.of(context).pop();
                   }),),
                    Container(
                     height: 70,
@@ -88,7 +89,7 @@ class _VoiceCallState extends State<VoiceCall> {
                         isMute=!isMute;
                       });
                       print("是否禁音");
-                      AgoraRtcEngine.muteLocalAudioStream(isMute);
+                      AgoraRtcEngine.muteAllRemoteAudioStreams(isMute);
                   })),
                 ],
               ),

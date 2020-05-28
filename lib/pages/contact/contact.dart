@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:FlutterStudy/components/search/search.dart';
 
 class ContactPage extends StatefulWidget {
   @override
@@ -9,7 +10,11 @@ class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("联系人"),
+      child:ListView(
+        children: <Widget>[
+          SearchBar()
+        ],
+      ),
     );
   }
 }

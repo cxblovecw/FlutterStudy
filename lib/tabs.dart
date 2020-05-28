@@ -1,3 +1,5 @@
+import 'package:FlutterStudy/pages/chat/chat.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-vioce-call/chat-voice.dart';
 import 'package:flutter/material.dart';
 import 'package:FlutterStudy/pages/drawer/drawer.dart';
 import 'package:FlutterStudy/pages/message/message.dart';
@@ -14,6 +16,12 @@ class _TabsState extends State<Tabs> {
   String title="消息";
   // 控制底部导航
   int index=0;
+  closeCall(){
+    setState(() {
+      ChatPage.isCalling=false;
+      ChatPage.type=null;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +58,26 @@ class _TabsState extends State<Tabs> {
           ContactPage(),
           MomontsPage(),]
       ),
+      floatingActionButton: ChatPage.isCalling?Container(
+        width: 60,
+        height: 60,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color:Colors.blue
+        ),
+        child:IconButton(icon: Icon(Icons.phone_in_talk,color:Colors.white), onPressed:(){
+        if(ChatPage.type==MediaType.Video){
+          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+          return VideoCall(closeCall);
+        }));
+        }
+        if(ChatPage.type==MediaType.Voice){
+          Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+          return VoiceCall(closeCall);
+        }));
+        }
+      })
+      ):null,
       // 底部导航
       bottomNavigationBar: BottomNavigationBar(
         items: [

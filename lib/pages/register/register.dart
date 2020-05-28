@@ -1,30 +1,39 @@
-import 'package:FlutterStudy/pages/register/register.dart';
+
 import 'package:FlutterStudy/tabs.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  String account="";
+class _RegisterPageState extends State<RegisterPage> {
+  String phone="";
   String password="";
   bool passwordVisible=false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-      padding: EdgeInsets.fromLTRB(40, 80, 40, 0),
-      child: Column(
-        children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
-            Icon(Icons.android,size: 50,color: Colors.green,),
-            Container(width: 10),
-            Text("Login",textAlign: TextAlign.center,style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold)),
-          ],),
-          Container(height: 50,),
-          Container(
+      body: Wrap(children: <Widget>[
+        Container(height: 20,),
+        Row(
+          children:<Widget>[
+            IconButton(icon: Icon(Icons.arrow_back_ios),onPressed: (){
+            Navigator.pop(context);
+            },)]
+          ,
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(40, 50, 40, 0),
+          child: Column(
+            children: <Widget>[
+              Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+                Icon(Icons.android,size: 50,color: Colors.green,),
+                Container(width: 10),
+                Text("Register",textAlign: TextAlign.center,style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold)),
+              ],),
+              Container(height: 50,),
+              Container(
             padding: EdgeInsets.fromLTRB(0, 5,0, 5),  
             decoration: BoxDecoration(
               color: Color.fromRGBO(200,200,200,0.3),
@@ -34,9 +43,9 @@ class _LoginPageState extends State<LoginPage> {
               enableInteractiveSelection: false,
               controller: TextEditingController.fromValue(
                 TextEditingValue(
-                  text:account,
+                  text:phone,
                   selection: new TextSelection.fromPosition(TextPosition(
-                    affinity: TextAffinity.downstream,offset: account.length)))
+                    affinity: TextAffinity.downstream,offset: phone.length)))
               ),
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
@@ -46,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                   icon: Icon(Icons.close,color: Colors.grey),
                   onPressed: (){
                     setState(() {
-                      account="";
+                      phone="";
                     });
                   },
                 ),
@@ -54,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             onChanged: (value){
               setState(() {
-                account=value;
+                phone=value;
               });
             },
           ),
@@ -116,29 +125,10 @@ class _LoginPageState extends State<LoginPage> {
               }),(route)=>route==null);
             }),
           ),
-          Expanded(child: Container()),
-          Row(
-            children: <Widget>[
-              Expanded(child:Container(
-                child: Text("忘记密码",textAlign: TextAlign.center),
-              )),
-              Text("|"),
-              Expanded(child:GestureDetector(
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-                    return RegisterPage();
-                  }));
-                },
-                child:Container(
-                child: Text("用户注册",textAlign: TextAlign.center),
-              )
-              )),
-            ],
-          ),
-          Container(height: 18,)
        ],
      ), 
-    ),
+    )
+      ],),
     );
   }
 }
