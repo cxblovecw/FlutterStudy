@@ -1,5 +1,8 @@
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 class VoiceCall extends StatefulWidget {
+  Function closeCall;
+  VoiceCall(this.closeCall);
   @override
   _VoiceCallState createState() => _VoiceCallState();
 }
@@ -9,7 +12,7 @@ class _VoiceCallState extends State<VoiceCall> {
   bool noSpeaking=false;
   @override
   Widget build(BuildContext context) {
-       return MaterialApp(
+      return MaterialApp(
       home: Scaffold(
         body: Stack(
           alignment: Alignment.center,
@@ -22,20 +25,10 @@ class _VoiceCallState extends State<VoiceCall> {
               ),
             ),
             Positioned(
-              top: 30,
-              right: 5,
-              child: Container(
-                width: 120,
-                height: 180,
-                decoration: BoxDecoration(
-                  color: Colors.green
-                ),
-              )),
-            Positioned(
               left: 0,
               top: 30,
               child: IconButton(icon:Icon(Icons.arrow_back_ios),onPressed:() {
-                    Navigator.of(context).pop();
+                Navigator.of(context).pop();
             })),
             Positioned(
               top: 250,
@@ -68,7 +61,7 @@ class _VoiceCallState extends State<VoiceCall> {
                       setState(() {
                         noSpeaking=!noSpeaking;  
                       });
-                      print("控制麦是否打开");
+                      AgoraRtcEngine.enableLocalAudio(noSpeaking);
                   }),),
                    Container(
                     height: 70,
@@ -79,7 +72,9 @@ class _VoiceCallState extends State<VoiceCall> {
                       borderRadius: BorderRadius.circular(35)
                     ),
                     child:IconButton(icon: Icon(Icons.local_phone,color: Colors.white), onPressed: (){
-                    print("接听挂断");
+                      AgoraRtcEngine.disableAudio();
+                      AgoraRtcEngine.leaveChannel();
+                      print("接听挂断");
                   }),),
                    Container(
                     height: 70,
@@ -93,6 +88,7 @@ class _VoiceCallState extends State<VoiceCall> {
                         isMute=!isMute;
                       });
                       print("是否禁音");
+                      AgoraRtcEngine.muteLocalAudioStream(isMute);
                   })),
                 ],
               ),

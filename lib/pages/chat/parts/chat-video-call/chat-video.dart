@@ -21,6 +21,7 @@ class _VideoCallState extends State<VideoCall> {
   @override
   void initState() { 
     super.initState();
+    requestPermision();
     // 获取我的屏幕
     me=AgoraRenderWidget(0, local: true, preview: true);
     // 好友连接时 获取好友的屏幕
@@ -36,7 +37,12 @@ class _VideoCallState extends State<VideoCall> {
       });
     }; 
   }
-
+  requestPermision()async{
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.microphone,
+      Permission.camera
+    ].request();
+  }
   @override
   Widget build(BuildContext context) {
       return MaterialApp(

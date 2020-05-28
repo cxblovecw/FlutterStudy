@@ -1,4 +1,6 @@
 // import 'package:FlutterStudy/pages/chat/parts/chat-vioce-call/chat-voice.dart';
+import 'package:FlutterStudy/pages/chat/parts/chat-vioce-call/chat-voice.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:FlutterStudy/utils/AppID.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/cupertino.dart';
@@ -54,9 +56,20 @@ class _ChatPageState extends State<ChatPage> {
         isCalling=true;
       })
     });
-
     Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
       return VideoCall(closeCall);
+    }));
+  }
+    toVoice()async{
+      await AgoraRtcEngine.create(APP_ID);
+      await AgoraRtcEngine.enableAudio();
+      await AgoraRtcEngine.joinChannel(null,'120',null, 0).then((value) => {
+      setState((){
+        isCalling=true;
+      })
+    });
+      Navigator.push(context,MaterialPageRoute(builder: (BuildContext context){
+      return VoiceCall(closeCall);
     }));
   }
   // 清除TextField的焦点
@@ -94,7 +107,7 @@ class _ChatPageState extends State<ChatPage> {
                       title: Text("语音通话",textAlign: TextAlign.center,),
                       onTap: (){
                         // 跳转至语音页面
-                        toVideo();
+                        toVoice();
                         // 隐藏模态框
                         Navigator.pop(context);
                       },
